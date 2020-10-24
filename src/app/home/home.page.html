@@ -3,7 +3,7 @@
         <ion-title class="teste">
             <div style="display: flex">
             <ion-icon style="margin-right: 7px" name="receipt-outline"></ion-icon>
-            <ion-label>{{'TAREFAS'}}</ion-label>
+            <ion-label>{{ 'tasks' | transloco | uppercase}}</ion-label>
             </div>
         </ion-title>
     </ion-toolbar>
@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true">
     <ion-list>
         <ion-item *ngIf="tasks.length < 1">
-            <ion-label>{{'Não há tarefa'}}</ion-label>
+            <ion-label>{{ 'There is no task' | transloco }}</ion-label>
         </ion-item>
         <ion-item-sliding *ngFor="let task of tasks">
             <ion-item>
@@ -25,11 +25,11 @@
 
             </ion-item>
             <ion-item-options side="start">
-                <ion-item-option *ngIf="task.done" (click)="changeStatus(task)">Concluída</ion-item-option>
-                <ion-item-option *ngIf="!task.done" (click)="changeStatus(task)">Pendente</ion-item-option>
+                <ion-item-option *ngIf="task.done" (click)="changeStatus(task)">{{ 'completed' | transloco }}</ion-item-option>
+                <ion-item-option *ngIf="!task.done" (click)="changeStatus(task)">{{ 'pending' | transloco }}</ion-item-option>
             </ion-item-options>
             <ion-item-options side="end">
-                <ion-item-option (click)="deleteModal(task)" color="danger">Excluir</ion-item-option>
+                <ion-item-option (click)="deleteModal(task)" color="danger">{{ 'delete' | transloco }}</ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>

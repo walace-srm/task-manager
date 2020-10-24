@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, ToastController, ActionSheetController} from '@ionic/angular';
 import {TasksService} from '../services/tasks.service';
+import {TranslocoService} from '@ngneat/transloco';
 
 @Component({
     selector: 'app-home',
@@ -15,31 +16,32 @@ export class HomePage {
         private alertCtrl: AlertController,
         private toastCtrl: ToastController,
         private actionsSheetCtrl: ActionSheetController,
-        private tasksService: TasksService) {
+        private tasksService: TasksService,
+        private translocoService: TranslocoService) {
 
         this.fetchTasks();
     }
 
     async showAdd() {
         const alert = await this.alertCtrl.create({
-            header: 'Adicione a tarefa',
+            header: this.translocoService.translate('add task'),
             inputs: [
                 {
                     name: 'newTask',
                     type: 'text',
-                    placeholder: 'O que deseja fazer?'
+                    placeholder: this.translocoService.translate('enter the task name')
                 }
             ],
             buttons: [
                 {
-                    text: 'Cancelar',
+                    text: this.translocoService.translate('cancel'),
                     role: 'Cancel',
                     cssClass: 'secondary',
                     handler: () => {
                     }
                 },
                 {
-                    text: 'Adicionar',
+                    text: this.translocoService.translate('confirm'),
                     handler: (form) => {
                         this.add(form.newTask);
                     }
@@ -52,7 +54,7 @@ export class HomePage {
     async add(newTask: string) {
         if (newTask.trim().length < 1) {
             const toast = await this.toastCtrl.create({
-                message: 'Tarefa não informada!',
+                message: this.translocoService.translate('task not informed'),
                 duration: 3000,
                 position: 'bottom'
             });
@@ -77,17 +79,17 @@ export class HomePage {
 
     async deleteModal(task) {
         const alert = await this.alertCtrl.create({
-            header: 'Deseja realmente excluir a tarefa?',
+            header: this.translocoService.translate('really want to delete the task'),
             buttons: [
                 {
-                    text: 'Cancelar',
+                    text: this.translocoService.translate('cancel'),
                     role: 'Cancel',
                     cssClass: 'secondary',
                     handler: () => {
                     }
                 },
                 {
-                    text: 'Confirmar',
+                    text: this.translocoService.translate('confirm'),
                     handler: () => {
                         this.deleteTask(task);
                     }
