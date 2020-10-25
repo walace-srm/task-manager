@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import {TranslocoModule} from '@ngneat/transloco';
+import { TranslocoModule } from '@ngneat/transloco';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {TranslocoModule} from '@ngneat/transloco';
         FormsModule,
         IonicModule,
         HomePageRoutingModule,
-        TranslocoModule
+        TranslocoModule,
+        DragDropModule,
     ],
   declarations: [HomePage]
 })

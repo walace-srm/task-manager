@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {AlertController, ToastController, ActionSheetController} from '@ionic/angular';
 import {TasksService} from '../services/tasks.service';
 import {TranslocoService} from '@ngneat/transloco';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+
 
 @Component({
     selector: 'app-home',
@@ -11,6 +13,21 @@ import {TranslocoService} from '@ngneat/transloco';
 export class HomePage {
 
     public tasks: any = [];
+
+    /**
+     * Drag-drop angular material
+     */
+    drop(event: CdkDragDrop<string[]>) {
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex);
+        }
+    }
+
 
     constructor(
         private alertCtrl: AlertController,
@@ -103,6 +120,37 @@ export class HomePage {
         await this.tasksService.delete(task._id).subscribe(() => {
             this.fetchTasks();
         });
+    }
+
+    async options(task) {
+        const actionSheet = await this.actionsSheetCtrl.create({
+            header: this.translocoService.translate('What do you want to do?'),
+            cssClass: 'my-custom-class',
+            buttons: [
+                {
+                    text: task.done ? this.translocoService.translate('set as pending') :
+                        this.translocoService.translate('set as done'),
+                    icon: 'hammer-outline',
+                    handler: () => {
+                        this.changeStatus(task);
+                    }
+                }, {
+                    text: this.translocoService.translate('delete'),
+                    role: 'destructive',
+                    icon: 'trash',
+                    handler: () => {
+                        this.deleteModal(task);
+                    }
+                },
+                {
+                    text: this.translocoService.translate('cancel'),
+                    icon: 'close',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }]
+        });
+        await actionSheet.present();
     }
 
     onSubmit(newTask) {

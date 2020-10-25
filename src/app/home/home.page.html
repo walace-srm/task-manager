@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
-    <ion-toolbar >
+    <ion-toolbar>
         <ion-title class="teste">
-            <div style="display: flex">
-            <ion-icon style="margin-right: 7px" name="receipt-outline"></ion-icon>
-            <ion-label>{{ 'tasks' | transloco | uppercase}}</ion-label>
+            <div class="title">
+                <ion-icon class="margin-icon" name="receipt-outline"></ion-icon>
+                <ion-label>{{ 'tasks' | transloco | uppercase}}</ion-label>
             </div>
         </ion-title>
     </ion-toolbar>
@@ -14,29 +14,27 @@
         <ion-item *ngIf="tasks.length < 1">
             <ion-label>{{ 'There is no task' | transloco }}</ion-label>
         </ion-item>
-        <ion-item-sliding *ngFor="let task of tasks">
-            <ion-item>
-                <ion-label *ngIf="task.done">
-                    <del>{{ task.name }}</del>
-                </ion-label>
-                <ion-label *ngIf="!task.done">{{ task.name }}</ion-label>
-                <ion-icon *ngIf="task.done" name="checkmark-outline" slot="start"></ion-icon>
-                <ion-icon *ngIf="!task.done" name="alarm-outline" slot="start"></ion-icon>
-
-            </ion-item>
-            <ion-item-options side="start">
-                <ion-item-option *ngIf="task.done" (click)="changeStatus(task)">{{ 'completed' | transloco }}</ion-item-option>
-                <ion-item-option *ngIf="!task.done" (click)="changeStatus(task)">{{ 'pending' | transloco }}</ion-item-option>
-            </ion-item-options>
-            <ion-item-options side="end">
-                <ion-item-option (click)="deleteModal(task)" color="danger">{{ 'delete' | transloco }}</ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
+        <div class="example-container">
+            <div cdkDropList [cdkDropListData]="tasks" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div *ngFor="let task of tasks" cdkDrag>
+                    <ion-item>
+                        <ion-label *ngIf="task.done">
+                            <del>{{ task.name }}</del>
+                        </ion-label>
+                        <ion-label *ngIf="!task.done">{{ task.name }}</ion-label>
+                        <ion-icon *ngIf="task.done" name="checkmark-outline" slot="start"></ion-icon>
+                        <ion-icon *ngIf="!task.done" name="alarm-outline" slot="start"></ion-icon>
+                        <ion-icon name="ellipsis-vertical-outline" slot="end" (click)="options(task);"></ion-icon>
+                    </ion-item>
+                </div>
+            </div>
+        </div>
     </ion-list>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="showAdd()">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-
 </ion-content>
+
+
