@@ -128,7 +128,7 @@ export class HomePage {
 
     async options(task) {
         const actionSheet = await this.actionsSheetCtrl.create({
-            header: this.translocoService.translate('What do you want to do?'),
+            header: this.translocoService.translate('what do you want to do?'),
             cssClass: 'my-custom-class',
             buttons: [
                 {
