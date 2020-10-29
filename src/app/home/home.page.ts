@@ -3,6 +3,8 @@ import {AlertController, ToastController, ActionSheetController} from '@ionic/an
 import {TasksService} from '../services/tasks.service';
 import {TranslocoService} from '@ngneat/transloco';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {AuthenticationService} from '../services/authentication-service.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -34,7 +36,9 @@ export class HomePage {
         private toastCtrl: ToastController,
         private actionsSheetCtrl: ActionSheetController,
         private tasksService: TasksService,
-        private translocoService: TranslocoService) {
+        private translocoService: TranslocoService,
+        private authenticationService: AuthenticationService,
+        private router: Router) {
 
         this.fetchTasks();
     }
@@ -157,5 +161,10 @@ export class HomePage {
         this.tasksService.save(newTask).subscribe((data) => {
             this.tasks.push(data);
         });
+    }
+
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
     }
 }

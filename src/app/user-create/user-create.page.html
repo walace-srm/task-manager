@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            <div class="title">
+                <ion-icon name="person-add-outline" class="margin-icon"></ion-icon>
+                <ion-label>{{'Cadastrar usuário' | uppercase}}</ion-label>
+            </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="loginForm" class="form">
+        <ion-item lines="full">
+            <ion-label position="floating">Usuário</ion-label>
+            <ion-input type="text" formControlName="username" placeholder="Inseria o usuário"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input type="password" formControlName="password" placeholder="Insira a senha"></ion-input>
+        </ion-item>
+
+        <ion-row>
+            <ion-col class="margin-button">
+                <ion-button type="submit" expand="block" (click)="submit(loginForm)">Cadastrar</ion-button>
+                <a [routerLink]="['/login']" class="register">Voltar</a>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

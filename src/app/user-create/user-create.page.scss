@@ -1,0 +1,38 @@
+:host ::ng-deep {
+  ion-button {
+    --background: #0c9abe;
+  }
+
+  ion-toolbar {
+    --background: #0c9abe !important;
+  }
+
+  ion-title {
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+  padding-top: 7px;
+}
+
+.form {
+  position: relative;
+  top: 110px;
+}
+
+.margin-icon {
+  margin-right: 7px;
+}
+
+.title {
+  display: flex;
+}
+
+.margin-button {
+  margin-top: 12px;
+}

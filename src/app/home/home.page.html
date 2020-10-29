@@ -1,9 +1,10 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
-        <ion-title class="teste">
+        <ion-title>
             <div class="title">
                 <ion-icon class="margin-icon" name="receipt-outline"></ion-icon>
                 <ion-label>{{ 'tasks' | transloco | uppercase}}</ion-label>
+                <a [routerLink]="" class="logout" (click)="logout()">Sair</a>
             </div>
         </ion-title>
     </ion-toolbar>
@@ -14,19 +15,17 @@
         <ion-item *ngIf="tasks.length < 1">
             <ion-label>{{ 'There is no task' | transloco }}</ion-label>
         </ion-item>
-        <div class="example-container">
-            <div cdkDropList [cdkDropListData]="tasks" class="example-list" (cdkDropListDropped)="drop($event)">
-                <div *ngFor="let task of tasks" cdkDrag>
-                    <ion-item>
-                        <ion-label *ngIf="task.done">
-                            <del>{{ task.name }}</del>
-                        </ion-label>
-                        <ion-label *ngIf="!task.done">{{ task.name }}</ion-label>
-                        <ion-icon *ngIf="task.done" name="checkmark-outline" slot="start"></ion-icon>
-                        <ion-icon *ngIf="!task.done" name="alarm-outline" slot="start"></ion-icon>
-                        <ion-icon name="ellipsis-vertical-outline" slot="end" (click)="options(task);"></ion-icon>
-                    </ion-item>
-                </div>
+        <div cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let task of tasks" cdkDrag>
+                <ion-item>
+                    <ion-label *ngIf="task.done">
+                        <del>{{ task.name }}</del>
+                    </ion-label>
+                    <ion-label *ngIf="!task.done">{{ task.name }}</ion-label>
+                    <ion-icon *ngIf="task.done" name="checkmark-outline" slot="start"></ion-icon>
+                    <ion-icon *ngIf="!task.done" name="alarm-outline" slot="start"></ion-icon>
+                    <ion-icon name="ellipsis-vertical-outline" slot="end" (click)="options(task);"></ion-icon>
+                </ion-item>
             </div>
         </div>
     </ion-list>
