@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
     login(username, password) {
-    return this.httClient.post<any>(`http://localhost:3000/users/auth`, { username, password })
+    return this.httClient.post<any>(`https://api-manager-task.herokuapp.com/users/auth`, { username, password })
         .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -34,6 +34,6 @@ export class AuthenticationService {
     }
 
     create(username, password) {
-      return this.httClient.post(`http://localhost:3000/users/create`, {username, password});
+      return this.httClient.post(`https://api-manager-task.herokuapp.com/users/create`, {username, password});
     }
 }
