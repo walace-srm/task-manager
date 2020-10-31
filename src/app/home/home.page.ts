@@ -15,6 +15,8 @@ import {Router} from '@angular/router';
 export class HomePage {
 
     public tasks: any = [];
+    public user;
+    xxx
 
     /**
      * Drag-drop angular material
@@ -41,6 +43,7 @@ export class HomePage {
         private router: Router) {
 
         this.fetchTasks();
+        this.loadUser();
     }
 
     async showAdd() {
@@ -96,6 +99,12 @@ export class HomePage {
         this.tasksService.getList().subscribe(data => {
             this.tasks = data;
         });
+    }
+
+    loadUser() {
+        const a = localStorage.getItem('currentUser');
+        const b = JSON.parse(a);
+        this.user = b.user.username;
     }
 
     async deleteModal(task) {

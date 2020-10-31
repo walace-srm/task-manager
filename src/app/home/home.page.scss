@@ -3,6 +3,7 @@
     color: #fff;
     font-size: 1.1em;
     font-weight: bold;
+    padding-right: 0;
   }
 
   ion-list {
@@ -30,13 +31,22 @@
   display: flex
 }
 
+.text-user {
+  position: absolute;
+  text-align: right;
+  width: 98%;
+  top: 15%;
+}
+
 .margin-icon {
   margin-right: 7px;
 }
 
 .logout {
-  left: 56%;
   color: white;
-  font-size: 15px;
-  position: relative;
+  font-size: 14px;
+  position: absolute;
+  text-align: right;
+  width: 90%;
+  top: 8px;
 }
