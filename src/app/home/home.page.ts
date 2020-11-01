@@ -102,9 +102,9 @@ export class HomePage {
     }
 
     loadUser() {
-        const a = localStorage.getItem('currentUser');
-        const b = JSON.parse(a);
-        this.user = b.user.username;
+        const token = localStorage.getItem('currentUser');
+        const a = JSON.parse(token);
+        this.user = a?.user.username;
     }
 
     async deleteModal(task) {

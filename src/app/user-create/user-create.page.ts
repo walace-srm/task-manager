@@ -53,7 +53,7 @@ export class UserCreatePage implements OnInit {
 
     submit({value, valid}: { value: LoginForm; valid: boolean }) {
         if (!valid) {
-            this.add();
+            return this.add();
         }
         this.authenticationService.create(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe();

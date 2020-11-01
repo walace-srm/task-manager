@@ -18,11 +18,12 @@ export class AuthenticationService {
   }
 
     login(username, password) {
+    //return this.httClient.post<any>(`http://localhost:3001/users/auth`, { username, password })
     return this.httClient.post<any>(`https://api-manager-task.herokuapp.com/users/auth`, { username, password })
         .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          // this.currentUserSubject.next(user);
+          this.currentUserSubject?.next(user);
           return user;
         }));
   }
@@ -30,10 +31,14 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
-        // this.currentUserSubject.next(null);
+        this.currentUserSubject?.next(null);
     }
 
     create(username, password) {
-      return this.httClient.post(`https://api-manager-task.herokuapp.com/users/create`, {username, password});
+      //return this.httClient.post(`http://localhost:3001/users/create`, {username, password});
+      return this.httClient.post(`https://api-manager-task.herokuapp.com/users/create`, {username, password})
+          .pipe(map((data) => {
+              return data;
+          }));
     }
 }
