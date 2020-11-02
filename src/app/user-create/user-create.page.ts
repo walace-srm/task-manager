@@ -13,6 +13,7 @@ import {ToastController} from '@ionic/angular';
 })
 export class UserCreatePage implements OnInit {
     public loginForm: FormGroup;
+    public userCreateSuccess;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -40,25 +41,34 @@ export class UserCreatePage implements OnInit {
         return;
     }
 
-    async messageSuccess() {
-        const toast = await this.toastCtrl.create({
-            message: this.translocoService.translate('Usuário Cadastrado com sucesso!'),
-            duration: 3000,
-            position: 'bottom'
-        });
-
-        toast.present();
-        return;
-    }
-
     submit({value, valid}: { value: LoginForm; valid: boolean }) {
         if (!valid) {
             return this.add();
         }
         this.authenticationService.create(this.loginForm.value.username, this.loginForm.value.password)
-            .subscribe();
-        this.loginForm.reset();
-        this.messageSuccess();
-        this.router.navigate(['/login']);
+            .subscribe(async (data) => {
+                this.userCreateSuccess = data;
+                if (this.userCreateSuccess.message !== undefined) {
+                    const toast = await this.toastCtrl.create({
+                        message: this.userCreateSuccess.message,
+                        duration: 3000,
+                        position: 'bottom'
+                    });
+
+                    toast.present();
+                    this.loginForm.reset();
+                    this.router.navigate(['/login']);
+                    return;
+                } else {
+                    const toast = await this.toastCtrl.create({
+                        message: this.userCreateSuccess.error,
+                        duration: 3000,
+                        position: 'bottom'
+                    });
+
+                    toast.present();
+                    return;
+                }
+            });
     }
 }
