@@ -16,7 +16,6 @@ export class HomePage {
 
     public tasks: any = [];
     public user;
-    xxx
 
     /**
      * Drag-drop angular material

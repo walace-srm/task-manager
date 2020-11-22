@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         HomePageRoutingModule,
         TranslocoModule,
         DragDropModule,
+        Ng2SearchPipeModule,
     ],
   declarations: [HomePage]
 })

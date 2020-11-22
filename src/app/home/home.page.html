@@ -12,12 +12,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+    <ion-searchbar placeholder="{{ 'search task' | transloco }}" [(ngModel)]="tasks.name" animated="true"></ion-searchbar>
     <ion-list>
         <ion-item *ngIf="tasks.length < 1">
             <ion-label>{{ 'There is no task' | transloco }}</ion-label>
         </ion-item>
         <div cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let task of tasks" cdkDrag>
+            <div *ngFor="let task of tasks | filter: tasks.name" cdkDrag>
                 <ion-item>
                     <ion-label *ngIf="task.done">
                         <del>{{ task.name }}</del>
@@ -36,5 +37,3 @@
         </ion-fab-button>
     </ion-fab>
 </ion-content>
-
-
